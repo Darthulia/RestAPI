@@ -1,0 +1,64 @@
+@RestAPI_HostAddress = http://localhost:5264
+
+### Get all ads
+GET {{RestAPI_HostAddress}}/Ads
+Accept: application/json
+
+### Get one ad
+GET {{RestAPI_HostAddress}}/Ads/1
+Accept: application/json
+
+### Create an ad
+POST {{RestAPI_HostAddress}}/Ads
+Content-Type: application/json
+
+{
+  "title": "Red bicycle",
+  "description": "A red bicycle in good condition.",
+  "price": 1500,
+  "category": "Sports",
+  "email": "seller@example.com"
+}
+
+### Create an ad with invalid data (should return 400 Bad Request)
+POST {{RestAPI_HostAddress}}/Ads
+Content-Type: application/json
+
+{
+  "title": "",
+  "description": "Missing title and bad email",
+  "price": -10,
+  "category": "Sports",
+  "email": "not-an-email"
+}
+
+### Update an ad (total update)
+PUT {{RestAPI_HostAddress}}/Ads/1
+Content-Type: application/json
+
+{
+  "title": "Blue bicycle",
+  "description": "A blue bicycle, newly painted.",
+  "price": 1800,
+  "category": "Sports",
+  "email": "seller@example.com"
+}
+
+### Update an ad (partial update) - only the price is changed
+PATCH {{RestAPI_HostAddress}}/Ads/1
+Content-Type: application/json
+
+{
+  "price": 1200
+}
+
+### Partial update with invalid data (should return 400 Bad Request)
+PATCH {{RestAPI_HostAddress}}/Ads/1
+Content-Type: application/json
+
+{
+  "price": -5
+}
+
+### Delete an ad
+DELETE {{RestAPI_HostAddress}}/Ads/1
